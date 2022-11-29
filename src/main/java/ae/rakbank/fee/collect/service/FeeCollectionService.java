@@ -9,6 +9,10 @@ import ae.rakbank.fee.collect.model.FeeDetail;
 
 import java.util.List;
 
+/**
+ * @author imran
+ * Interface for Fee Collection Service
+ */
 public interface FeeCollectionService {
 
     public FeeCollectionResponse collectFee(FeeCollectionRequest feeCollectionRequest) throws ApiInvokerServiceException, StudentNotFoundException;

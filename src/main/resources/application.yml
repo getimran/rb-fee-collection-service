@@ -19,6 +19,6 @@ spring:
     console.enabled: true
 
 fee-collect:
-  student:
-    service:
+  service:
+    student:
       url: http://localhost:8080/rakbank/api/student/

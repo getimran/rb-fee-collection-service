@@ -12,14 +12,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.retry.RetryContext;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
+
 import java.util.Optional;
 
-//@SpringBootTest
+@SpringBootTest
 public class ApiInvokerServiceImplTest {
 
 
@@ -35,10 +34,10 @@ public class ApiInvokerServiceImplTest {
         ReflectionTestUtils.setField(apiInvokerService, "getStudentByIdUrl", "http://localhost:8080/rakbank/api/student/");
     }
 
-//    @Test
+    @Test
     public void testInvokeGetStudentByIdService() throws ApiInvokerServiceException, StudentNotFoundException {
 
-        Mockito.when(restTemplate.getForEntity(Mockito.any(URI.class), Mockito.any(Class.class)))
+        Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.any()))
                 .thenReturn(ResponseEntity.ok(TestUtility.getStudentResponse(1001)));
         Optional<StudentResponse> studentResponseOptional= apiInvokerService.invokeGetStudentByIdService(1001);
         Assertions.assertTrue(studentResponseOptional.isPresent());

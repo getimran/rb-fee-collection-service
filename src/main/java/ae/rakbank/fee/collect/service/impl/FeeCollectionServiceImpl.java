@@ -19,6 +19,10 @@ import java.util.Optional;
 import static ae.rakbank.fee.collect.utility.AppConstants.FEE_NOT_FOUND;
 import static ae.rakbank.fee.collect.utility.AppConstants.STUDENT_NOT_FOUND;
 
+/**
+ * @author imran
+ * Fee Collection Service Implementation
+ */
 @Service
 public class FeeCollectionServiceImpl implements FeeCollectionService {
 
@@ -29,6 +33,13 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
     @Autowired
     private FeeCollectionRepository feeCollectionRepository;
 
+    /**
+     *
+     * @param feeCollectionRequest
+     * @return
+     * @throws ApiInvokerServiceException
+     * @throws StudentNotFoundException
+     */
     @Override
     public FeeCollectionResponse collectFee(FeeCollectionRequest feeCollectionRequest)
             throws ApiInvokerServiceException, StudentNotFoundException {
@@ -43,6 +54,12 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
         return FeeCollectionUtility.convertToFeeCollectionResponse(feeDetail);
     }
 
+    /**
+     *
+     * @param studentId
+     * @return
+     * @throws FeeDetailNotFoundException
+     */
     @Override
     public List<FeeDetail> findAllByStudentId(Integer studentId) throws FeeDetailNotFoundException {
         List<FeeDetail> feeDetailList = feeCollectionRepository.findAllByStudentId(studentId);
@@ -52,6 +69,12 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
         return feeDetailList;
     }
 
+    /**
+     *
+     * @param referenceId
+     * @return
+     * @throws FeeDetailNotFoundException
+     */
     @Override
     public FeeDetail findByReferenceId(String referenceId) throws FeeDetailNotFoundException {
         Optional<FeeDetail> feeDetailOptional = feeCollectionRepository.findById(referenceId);

@@ -19,7 +19,7 @@ import static ae.rakbank.fee.collect.utility.AppConstants.*;
 
 /**
  * @author imran
- * Entity class for Student
+ * Entity class for Fee Detail
  */
 @Data
 @NoArgsConstructor
