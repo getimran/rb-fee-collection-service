@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 
 /**
  * @author imran
- * Constant class for Student Service
+ * Constant class for Fee Collection Service
  */
 @UtilityClass
 public class AppConstants {

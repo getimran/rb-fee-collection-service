@@ -20,23 +20,34 @@ import java.util.Optional;
 import static ae.rakbank.fee.collect.utility.AppConstants.STUDENT_NOT_FOUND;
 import static ae.rakbank.fee.collect.utility.LogMessages.*;
 
+/**
+ * @author imran
+ * Api Invoker Sevice Implementation
+ */
 @Slf4j
 @Service
 public class ApiInvokerServiceImpl implements ApiInvokerService {
 
 
-    @Value("${fee-collect.student.service.url}")
+    @Value("${fee-collect.service.student.url}")
     private String getStudentByIdUrl;
 
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     *
+     * @param studentId
+     * @return
+     * @throws ApiInvokerServiceException
+     * @throws StudentNotFoundException
+     */
     @Override
     public Optional<StudentResponse> invokeGetStudentByIdService(Integer studentId) throws ApiInvokerServiceException, StudentNotFoundException {
 
         try {
             log.info(INVOKING_STUDENT_GET_SERVICE, studentId);
-            log.info(ATTEMPT, RetrySynchronizationManager.getContext().getRetryCount());
+            log.info(ATTEMPT, getAttemptCount());
             ResponseEntity<StudentResponse> studentResponseEntity = restTemplate
                     .getForEntity(getStudentByIdUrl + studentId, StudentResponse.class);
             log.info(RECEIVED_RESPONSE, studentResponseEntity.getStatusCode());
@@ -54,5 +65,10 @@ public class ApiInvokerServiceImpl implements ApiInvokerService {
             throw new ApiInvokerServiceException(ex.getMessage());
         }
         return Optional.empty();
+    }
+
+    private int getAttemptCount() {
+        return (RetrySynchronizationManager.getContext() == null ? -1 :
+                RetrySynchronizationManager.getContext().getRetryCount());
     }
 }
